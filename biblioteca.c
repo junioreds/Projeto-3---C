@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include "biblioteca.h"
 
+void printMenu(){ // função usada para listar as opções do nosso código para o usuario
+    printf("/// Bem vindo ao nosso codigo de listar tarefas, olhe as opcoes /// \n");
+    printf("Opcao 1: Cadastrar nova tarefa\n"); // se opcao for 1,  cadastra uma nova tarefa
+    printf("Opcao 2: Listar tarefa\n"); // se opcao for 2, lista as tarefas
+    printf("Opcao 3: Deletar tarefa\n"); // se opcao for 3, deleta a tarefa selecionada pelo usuario
+    printf("Opcao 4: Salvar tarefas\n"); // se opcao for 4, salva as tarefas em um arquivo txt
+    printf("Opcao 5: Carregar tarefa\n"); // se opcao for 5, carrega as tarefas em um arquivo txt
+    printf("Opcao 6: Filtrar tarefa por pioridade\n");
+    printf("Opcao 7: Filtrar tarefa por estado\n");
+    printf("Opcao 8: Filtrar tarefa por prioridade e categoria\n");
+    printf("Opcao 9: Carregar tarefa\n");
+    printf("Opcao 10: Carregar tarefa\n");
+    printf("Opcao 11: Carregar tarefa\n");
+    printf("Opcao 0: Sair do codigo.\n"); // Termina o laço de repetição do código
+    printf("Qual opcao voce deseja: "); // input do usuario de qual opcao ele deseja
+}
+
 int cadastrarTarefa(ListaDeTarefas *lt){ //função que é usada para cadastrar uma nova tarefa para o usuario
     printf("Digite a prioridade da tarefa (0 a 10): "); // define a prioridade da tarefa
     scanf("%d", &lt->tarefas[lt->qtd].prioridade); // define a entrada de dados da prioridade da tarefa e salva na struct
@@ -57,19 +74,8 @@ int listarTarefas(ListaDeTarefas lt){ // lsita o número de tarefas feitas pelo 
     return 0;
 }
 
-void printMenu(){ // função usada para listar as opções do nosso código para o usuario
-    printf("/// Bem vindo ao nosso codigo de listar tarefas, olhe as opcoes /// \n");
-    printf("Opcao 1: Cadastrar nova tarefa\n"); // se opcao for 1,  cadastra uma nova tarefa
-    printf("Opcao 2: Listar tarefa\n"); // se opcao for 2, lista as tarefas
-    printf("Opcao 3: Deletar tarefa\n"); // se opcao for 3, deleta a tarefa selecionada pelo usuario
-    printf("Opcao 4: Salvar tarefas\n"); // se opcao for 4, salva as tarefas em um arquivo txt
-    printf("Opcao 5: Carregar tarefa\n"); // se opcao for 5, carrega as tarefas em um arquivo txt
-    printf("Opcao 0: Sair do codigo.\n"); // Termina o laço de repetição do código
-    printf("Qual opcao voce deseja: "); // input do usuario de qual opcao ele deseja
-}
-
-int salvarTarefas(ListaDeTarefas *lt, char *arquivo){ // salva as tarefas feitas em um arquivo txt
-    FILE *arquivoTarefas = fopen(arquivo, "w");
+int salvarTarefas(ListaDeTarefas *lt, char *arquivo){ // salva as tarefas feitas em um arquivo binario
+    FILE *arquivoTarefas = fopen(arquivo, "bw");
 
     if (arquivoTarefas == NULL) {
         printf("Erro ao salvar tarefa"); // se o arquivo estiver vazio, retorna um erro ao salvar a tarefa
@@ -90,7 +96,7 @@ int salvarTarefas(ListaDeTarefas *lt, char *arquivo){ // salva as tarefas feitas
 }
 
 int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas feitas em um arquivo txt
-    FILE *arquivoTarefas = fopen(arquivo, "r");
+    FILE *arquivoTarefas = fopen(arquivo, "br");
 
     if (arquivoTarefas == NULL) {  // se o arquivo estiver vazio, retorna um erro ao carregar a tarefa
         printf("Erro ao carregar arquivo");
@@ -110,4 +116,38 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas fe
     printf("Tarefas carregadas com sucesso");
 
     return 1;
+}
+
+void alterarTarefas(ListaDeTarefas *lt, char *arquivo){
+    printf("Altera tarefas");
+
+}   
+
+void filtrarTarefasPrioridade(){
+    printf("Filtra Tarefas por Prioridade");
+
+}
+
+void filtrarTarefasEstado(){
+    printf("Filtra tarefas por Estado");
+
+}
+
+void filtrarPrioridadeCategoria(){
+    printf("Fitra Tarefas por Prioridade e Categoria");
+    
+}
+
+void exportarTarefasPrioridade(){
+    printf("Exporta tarefas para um arquivo txt por prioridade");
+}
+
+void exportarTarefasCategoria(){
+    printf("Exporta tarefas para um arquivo txt por categoria");
+
+}
+
+void exportarTarefasPrioridadeCategoria(){
+    printf("Exporta tarefas para um arquivo txt pela juncao da prioridade e categoria");
+
 }

@@ -26,10 +26,22 @@ int main() {
             salvarTarefas(&lt, "tarefas.txt"); // salva as tarefas em um arquivo.txt
         }  else if (opcao == 5){
             carregarTarefas(&lt, "tarefas.txt"); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 6){
+            filtrarTarefasPrioridade(); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 7){
+            filtrarTarefasEstado(); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 8){
+            filtrarPrioridadeCategoria(); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 9){
+            exportarTarefasPrioridade(); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 10){
+            exportarTarefasCategoria(); // carrega as tarefas em um arquivo.txt
+        }  else if (opcao == 11){
+            exportarTarefasPrioridadeCategoria(); // carrega as tarefas em um arquivo.txt
         } else{
             printf("Opcao nao disponivel.\n"); // Mostra ao usuario que não existe a opção alem de 1 a 5, e retorna as opções de entrada
         }
-    }
-
+    
     return 0;
-}
+    };
+};
