@@ -60,7 +60,7 @@ int deletarTarefa(ListaDeTarefas *lt){
     return 0;
 }
 
-int listarTarefas(ListaDeTarefas *lt){ // lsita o número de tarefas feitas pelo usuario
+int listarTarefas(ListaDeTarefas *lt){ // lista o número de tarefas feitas pelo usuario
     if (lt->qtd == 0) {                // se o numero de tarefas for 0 retorna o print
         printf("Nenhum tarefa cadastrada\n");
         return 0;
@@ -113,7 +113,7 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas fe
     return 1;
 }
 
-int alterarTarefas(ListaDeTarefas *lt){
+void alterarTarefas(ListaDeTarefas *lt){
     if (lt->qtd == 0) {
         printf("Nenhuma tarefa cadastrada\n");
 
@@ -146,9 +146,27 @@ int alterarTarefas(ListaDeTarefas *lt){
 
 }   
 
-void filtrarTarefasPrioridade(){
-    printf("Filtra Tarefas por Prioridade");
+void filtrarTarefasPrioridade(ListaDeTarefas lt){
+    int prioridade; 
+    printf("Digite a prioridade para filtrar as tarefas (0 a 10): ");
+    scanf("%d", &prioridade);
 
+    printf("Tarefas com prioridade %d:\n", prioridade);
+    int encontradas = 0;
+
+    for (int i = 0; i < lt.qtd; i++){
+        if (lt.tarefas[i].prioridade == prioridade) {
+            encontradas = 1;
+            printf("Tarefa %d: \n", i + 1);
+            printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
+            printf("Descricao: %s\n", lt.tarefas[i].descricao);
+            printf("Categoria: %s\n", lt.tarefas[i].categoria);
+        }
+    }    
+
+    if (!encontradas) {
+        printf("Nenhuma tarefas encontrada com a prioridade %d solicitada\n");
+    }
 }
 
 void filtrarTarefasEstado(){

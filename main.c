@@ -28,7 +28,7 @@ int main() {
         }  else if (opcao == 6){
             alterarTarefas(&lt); // salva as tarefas em um arquivo.txt
         }  else if (opcao == 7){
-            filtrarTarefasPrioridade(); // carrega as tarefas em um arquivo.txt
+            filtrarTarefasPrioridade(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 8){
             filtrarTarefasEstado(); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 9){
