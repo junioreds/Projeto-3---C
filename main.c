@@ -30,7 +30,7 @@ int main() {
         }  else if (opcao == 7){
             filtrarTarefasPrioridade(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 8){
-            filtrarTarefasEstado(); // carrega as tarefas em um arquivo.txt
+            filtrarTarefasEstado(&lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 9){
             filtrarPrioridadeCategoria(); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 10){
