@@ -29,6 +29,9 @@ int cadastrarTarefa(ListaDeTarefas *lt){ //função que é usada para cadastrar 
     printf("Categorize a tarefa (menos importante a muito importante): "); // define o grau de importância da tarefa
     fgets(lt->tarefas[lt->qtd].categoria, 100, stdin);
     lt->tarefas[lt->qtd].categoria[strcspn(lt->tarefas[lt->qtd].categoria, "\n")] = '\0'; // Remove a quebra de linha do final
+    printf("Digite o estado da tarefa: ");
+    fgets(lt->tarefas[lt->qtd].estado, 100, stdin);
+    lt->tarefas[lt->qtd].estado[strcspn(lt->tarefas[lt->qtd].estado, "\n")] = '\0';
     lt->qtd++;
     printf("\n");
     return 0;
@@ -71,6 +74,7 @@ int listarTarefas(ListaDeTarefas *lt){ // lista o número de tarefas feitas pelo
         printf("Prioridade: %d\n", lt->tarefas[i].prioridade);
         printf("Descricao: %s\n", lt->tarefas[i].descricao);
         printf("Categoria: %s\n", lt->tarefas[i].categoria);
+        printf("Estado: %s\n", lt->tarefas[i].estado);
     }
     return 0;
 }
@@ -80,7 +84,6 @@ int salvarTarefas(ListaDeTarefas *lt, char *arquivo){ // salva as tarefas feitas
 
     if (arquivoTarefas == NULL) {
         printf("Erro ao salvar tarefa"); // se o arquivo estiver vazio, retorna um erro ao salvar a tarefa
-        return;
     };
 
     fwrite(&lt->qtd, sizeof(int), 1, arquivoTarefas);
@@ -116,8 +119,6 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas fe
 void alterarTarefas(ListaDeTarefas *lt){
     if (lt->qtd == 0) {
         printf("Nenhuma tarefa cadastrada\n");
-
-        return 0;
     }
 
     int numeroTarefa;
@@ -126,7 +127,6 @@ void alterarTarefas(ListaDeTarefas *lt){
 
     if (numeroTarefa < 1 || numeroTarefa > lt->qtd) {
         printf("Numero de tarefa invalido\n");
-        return 0;
     }
 
     printf("Digite a nova prioridade da tarefa (0 a 10): ");
@@ -141,9 +141,11 @@ void alterarTarefas(ListaDeTarefas *lt){
     printf("Digite a nova categoria: ");
     fgets(lt->tarefas[numeroTarefa - 1].categoria, 100, stdin);
     lt->tarefas[numeroTarefa - 1].categoria[strcspn(lt->tarefas[numeroTarefa - 1].categoria, "\n")] = '\0';
+
+    printf("Digite o estado da tarefa: ");
+    fgets(lt->tarefas[numeroTarefa - 1].estado, 100, stdin);
+    lt->tarefas[numeroTarefa - 1].estado[strcspn(lt->tarefas[numeroTarefa - 1].estado, "\n")] = '\0';
     printf("Tarefa alterada com sucesso\n");
-
-
 }   
 
 void filtrarTarefasPrioridade(ListaDeTarefas lt){
@@ -161,6 +163,7 @@ void filtrarTarefasPrioridade(ListaDeTarefas lt){
             printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
             printf("Descricao: %s\n", lt.tarefas[i].descricao);
             printf("Categoria: %s\n", lt.tarefas[i].categoria);
+            printf("Estado: %s\n", lt.tarefas[i].estado);
         }
     }    
 
@@ -169,8 +172,28 @@ void filtrarTarefasPrioridade(ListaDeTarefas lt){
     }
 }
 
-void filtrarTarefasEstado(){
-    printf("Filtra tarefas por Estado");
+void filtrarTarefasEstado(ListaDeTarefas *lt){
+    char estado[100]; 
+    int encontradas = 0;
+
+    printf("Digite o estado da tarefa que deseja filtrar: ");
+    scanf("%s", &estado);
+    
+
+    for (int i = 0; i < lt->qtd; i++) {
+        if (strcmp(lt->tarefas[i].estado, estado) == 0) {
+            encontradas = 1;
+            printf("Tarefa %d: \n", i + 1);
+            printf("Prioridade: %d\n", lt->tarefas[i].prioridade);
+            printf("Descricao: %s\n", lt->tarefas[i].descricao);
+            printf("Categoria: %s\n", lt->tarefas[i].categoria);
+            printf("Estado: %s\n", lt->tarefas[i].estado);
+        }
+    }    
+
+    if (!encontradas) {
+        printf("Nenhuma tarefas encontrada com o estado %s solicitada\n", estado);
+    }
 
 }
 

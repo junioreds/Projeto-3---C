@@ -9,6 +9,7 @@ typedef struct { //struct que onde as tarefas estão armazenadas
     int prioridade;
     char categoria[100];
     char descricao[300];
+    char estado [100];
 } Tarefa;
 
 
@@ -28,7 +29,7 @@ int salvarTarefas(ListaDeTarefas *lt, char *arquivo);
 int carregarTarefas(ListaDeTarefas *lt, char *arquivo);
 void alterarTarefas(ListaDeTarefas *lt);
 void filtrarTarefasPrioridade(ListaDeTarefas lt);
-void filtrarTarefasEstado();
+void filtrarTarefasEstado(ListaDeTarefas *lt);
 void filtrarPrioridadeCategoria();
 void exportarTarefasPrioridade();
 void exportarTarefasCategoria();
