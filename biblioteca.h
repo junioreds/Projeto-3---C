@@ -22,11 +22,11 @@ typedef struct { // struct que armazena a quantidade de tarefas
 
 int cadastrarTarefa(ListaDeTarefas *lt);
 int deletarTarefa(ListaDeTarefas *lt);
-int listarTarefas(ListaDeTarefas lt);
+int listarTarefas(ListaDeTarefas *lt);
 void printMenu();
 int salvarTarefas(ListaDeTarefas *lt, char *arquivo);
 int carregarTarefas(ListaDeTarefas *lt, char *arquivo);
-void alterarTarefas(ListaDeTarefas *lt, char *arquivo);
+int alterarTarefas(ListaDeTarefas *lt);
 void filtrarTarefasPrioridade();
 void filtrarTarefasEstado();
 void filtrarPrioridadeCategoria();
