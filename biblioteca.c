@@ -8,12 +8,13 @@ void printMenu(){ // função usada para listar as opções do nosso código par
     printf("Opcao 3: Deletar tarefa\n"); // se opcao for 3, deleta a tarefa selecionada pelo usuario
     printf("Opcao 4: Salvar tarefas\n"); // se opcao for 4, salva as tarefas em um arquivo txt
     printf("Opcao 5: Carregar tarefa\n"); // se opcao for 5, carrega as tarefas em um arquivo txt
-    printf("Opcao 6: Filtrar tarefa por pioridade\n");
-    printf("Opcao 7: Filtrar tarefa por estado\n");
-    printf("Opcao 8: Filtrar tarefa por prioridade e categoria\n");
-    printf("Opcao 9: Carregar tarefa\n");
-    printf("Opcao 10: Carregar tarefa\n");
-    printf("Opcao 11: Carregar tarefa\n");
+    printf("Opcao 6: Alterar tarefa\n");
+    printf("Opcao 7: Filtrar tarefa por pioridade\n");
+    printf("Opcao 8: Filtrar tarefa por estado\n");
+    printf("Opcao 9: Filtrar tarefa por prioridade e categoria\n");
+    printf("Opcao 10: Exportar tarefas por prioridade para arquivo.txt\n");
+    printf("Opcao 11: Exportar tarefas por categoria para arquivo.txt\n");
+    printf("Opcao 12: Exportar tarefas por prioridade e categoria para arquivo.txt\n");
     printf("Opcao 0: Sair do codigo.\n"); // Termina o laço de repetição do código
     printf("Qual opcao voce deseja: "); // input do usuario de qual opcao ele deseja
 }
@@ -59,58 +60,52 @@ int deletarTarefa(ListaDeTarefas *lt){
     return 0;
 }
 
-int listarTarefas(ListaDeTarefas lt){ // lsita o número de tarefas feitas pelo usuario
-    if (lt.qtd == 0) {                // se o numero de tarefas for 0 retorna o print
+int listarTarefas(ListaDeTarefas *lt){ // lsita o número de tarefas feitas pelo usuario
+    if (lt->qtd == 0) {                // se o numero de tarefas for 0 retorna o print
         printf("Nenhum tarefa cadastrada\n");
         return 0;
-    }
+    };
 
-    for (int  i = 0; i < lt.qtd; i++) { // Pega a posição das tarefas e lista elas como "tarefa1", "tarefa2"...
+    for (int  i = 0; i < lt->qtd; i++) { // Pega a posição das tarefas e lista elas como "tarefa1", "tarefa2"...
         printf("Tarefa %d: \n", i+1);
-        printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
-        printf("Descricao: %s\n", lt.tarefas[i].descricao);
-        printf("Categoria: %s\n", lt.tarefas[i].categoria);
+        printf("Prioridade: %d\n", lt->tarefas[i].prioridade);
+        printf("Descricao: %s\n", lt->tarefas[i].descricao);
+        printf("Categoria: %s\n", lt->tarefas[i].categoria);
     }
     return 0;
 }
 
 int salvarTarefas(ListaDeTarefas *lt, char *arquivo){ // salva as tarefas feitas em um arquivo binario
-    FILE *arquivoTarefas = fopen(arquivo, "bw");
+    FILE *arquivoTarefas = fopen(arquivo, "wb");
 
     if (arquivoTarefas == NULL) {
         printf("Erro ao salvar tarefa"); // se o arquivo estiver vazio, retorna um erro ao salvar a tarefa
+        return;
+    };
 
-        return 1;
-    }
+    fwrite(&lt->qtd, sizeof(int), 1, arquivoTarefas);
 
-    for (int i = 0; i <lt -> qtd; i++) { //puxa a posição das tarefas dentro da struct e salva em arquivo
-        fprintf(arquivoTarefas, "%d\n", lt->tarefas[i].prioridade);
-        fprintf(arquivoTarefas, "%d\n", lt->tarefas[i].descricao);
-        fprintf(arquivoTarefas, "%d\n", lt->tarefas[i].categoria);
-    }
+    for (int i = 0; i < lt->qtd; i++) {
+        fwrite(&lt->tarefas[i], sizeof(Tarefa), 1, arquivoTarefas);
+    };
 
     fclose(arquivoTarefas);
     printf("As tarefas foram salvas\n");
-
-    return 0;
 }
 
 int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas feitas em um arquivo txt
-    FILE *arquivoTarefas = fopen(arquivo, "br");
+    FILE *arquivoTarefas = fopen(arquivo, "rb");
 
     if (arquivoTarefas == NULL) {  // se o arquivo estiver vazio, retorna um erro ao carregar a tarefa
-        printf("Erro ao carregar arquivo");
-        return 1;
-    }
+        printf("Erro ao encontrar o arquivo");
+        return 0;
+    };
 
-    while (!feof(arquivoTarefas) && lt -> qtd < 100) { // define que enquanto o arquivoTarefas for < 100
-        fscanf(arquivoTarefas, "%d", &lt->tarefas[lt->qtd].prioridade);
-        fgetc(arquivoTarefas);                         // percorre cada armazenamento da da struct e carrega as tarefas
-        fgets(lt->tarefas[lt->qtd].descricao, 300, arquivoTarefas);
-        lt->tarefas[lt->qtd].descricao[strcspn(lt->tarefas[lt->qtd].descricao, "\n")] = '\0';
-        fgets(lt->tarefas[lt->qtd].categoria, 100, arquivoTarefas);
-        lt->tarefas[lt->qtd].categoria[strcspn(lt->tarefas[lt->qtd].categoria, "\n")] = '\0';
-    }
+    fread(&lt->qtd, sizeof(int), 1, arquivoTarefas);
+
+    for (int i = 0; i < lt->qtd; i++) {
+        fread(&lt->tarefas[i], sizeof(Tarefa), 1, arquivoTarefas);
+    };
 
     fclose(arquivoTarefas);
     printf("Tarefas carregadas com sucesso");
@@ -118,8 +113,36 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas fe
     return 1;
 }
 
-void alterarTarefas(ListaDeTarefas *lt, char *arquivo){
-    printf("Altera tarefas");
+int alterarTarefas(ListaDeTarefas *lt){
+    if (lt->qtd == 0) {
+        printf("Nenhuma tarefa cadastrada\n");
+
+        return 0;
+    }
+
+    int numeroTarefa;
+    printf("Escolha a tarefa que deseja alterar (1 a %d): ", lt->qtd);
+    scanf("%d", &numeroTarefa);
+
+    if (numeroTarefa < 1 || numeroTarefa > lt->qtd) {
+        printf("Numero de tarefa invalido\n");
+        return 0;
+    }
+
+    printf("Digite a nova prioridade da tarefa (0 a 10): ");
+    scanf("%d", &lt->tarefas[numeroTarefa - 1].prioridade);
+
+    getchar();
+
+    printf("Digite a nova descricao da tarefa: ");
+    fgets(lt->tarefas[numeroTarefa - 1].descricao, 300, stdin);
+    lt->tarefas[numeroTarefa - 1].descricao[strcspn(lt->tarefas[numeroTarefa - 1].descricao, "\n")] = '\0';
+
+    printf("Digite a nova categoria: ");
+    fgets(lt->tarefas[numeroTarefa - 1].categoria, 100, stdin);
+    lt->tarefas[numeroTarefa - 1].categoria[strcspn(lt->tarefas[numeroTarefa - 1].categoria, "\n")] = '\0';
+    printf("Tarefa alterada com sucesso\n");
+
 
 }   
 
