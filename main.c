@@ -42,6 +42,10 @@ int main() {
             printf("Opcao nao disponivel.\n"); // Mostra ao usuario que não existe a opção alem de 1 a 5, e retorna as opções de entrada
         }
     
-    return 0;
+        
     };
+
+    return 0;
+
 };
+
