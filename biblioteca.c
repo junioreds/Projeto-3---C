@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include "biblioteca.h"
 
-void printMenu(){ // função usada para listar as opções do nosso código para o usuario
+void limpaBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF){ }
+}
+
+int printMenu(){ // função usada para listar as opções do nosso código para o usuario
     printf("/// Bem vindo ao nosso codigo de listar tarefas, olhe as opcoes /// \n");
     printf("Opcao 1: Cadastrar nova tarefa\n"); // se opcao for 1,  cadastra uma nova tarefa
     printf("Opcao 2: Listar tarefa\n"); // se opcao for 2, lista as tarefas
@@ -22,7 +27,7 @@ void printMenu(){ // função usada para listar as opções do nosso código par
 int cadastrarTarefa(ListaDeTarefas *lt){ //função que é usada para cadastrar uma nova tarefa para o usuario
     printf("Digite a prioridade da tarefa (0 a 10): "); // define a prioridade da tarefa
     scanf("%d", &lt->tarefas[lt->qtd].prioridade); // define a entrada de dados da prioridade da tarefa e salva na struct
-    getchar(); // Limpa o buffer de entrada
+    limpaBuffer();
     printf("Descreva a tarefa: \n"); // define o que seria a tarefa
     fgets(lt->tarefas[lt->qtd].descricao, 300, stdin);
     lt->tarefas[lt->qtd].descricao[strcspn(lt->tarefas[lt->qtd].descricao, "\n")] = '\0'; // Remove a quebra de linha do final
@@ -116,7 +121,7 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo){ // carrega as tarefas fe
     return 1;
 }
 
-void alterarTarefas(ListaDeTarefas *lt){
+int alterarTarefas(ListaDeTarefas *lt){
     if (lt->qtd == 0) {
         printf("Nenhuma tarefa cadastrada\n");
     }
@@ -148,7 +153,7 @@ void alterarTarefas(ListaDeTarefas *lt){
     printf("Tarefa alterada com sucesso\n");
 }   
 
-void filtrarTarefasPrioridade(ListaDeTarefas lt){
+int filtrarTarefasPrioridade(ListaDeTarefas lt){
     int prioridade; 
     printf("Digite a prioridade para filtrar as tarefas (0 a 10): ");
     scanf("%d", &prioridade);
@@ -172,13 +177,16 @@ void filtrarTarefasPrioridade(ListaDeTarefas lt){
     }
 }
 
-void filtrarTarefasEstado(ListaDeTarefas *lt){
+int filtrarTarefasEstado(ListaDeTarefas *lt){
     char estado[100]; 
+    
+    limpaBuffer();
+    printf("Digite o estado da tarefa que deseja filtrar: ");
+    fgets(estado, 100, stdin);
+    estado[strcspn(estado, "\n")] = '\0';
+    
     int encontradas = 0;
 
-    printf("Digite o estado da tarefa que deseja filtrar: ");
-    scanf("%s", &estado);
-    
 
     for (int i = 0; i < lt->qtd; i++) {
         if (strcmp(lt->tarefas[i].estado, estado) == 0) {
@@ -197,21 +205,21 @@ void filtrarTarefasEstado(ListaDeTarefas *lt){
 
 }
 
-void filtrarPrioridadeCategoria(){
+int filtrarPrioridadeCategoria(){
     printf("Fitra Tarefas por Prioridade e Categoria");
     
 }
 
-void exportarTarefasPrioridade(){
+int exportarTarefasPrioridade(){
     printf("Exporta tarefas para um arquivo txt por prioridade");
 }
 
-void exportarTarefasCategoria(){
+int exportarTarefasCategoria(){
     printf("Exporta tarefas para um arquivo txt por categoria");
 
 }
 
-void exportarTarefasPrioridadeCategoria(){
+int exportarTarefasPrioridadeCategoria(){
     printf("Exporta tarefas para um arquivo txt pela juncao da prioridade e categoria");
 
 }
