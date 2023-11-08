@@ -24,16 +24,17 @@ typedef struct { // struct que armazena a quantidade de tarefas
 int cadastrarTarefa(ListaDeTarefas *lt);
 int deletarTarefa(ListaDeTarefas *lt);
 int listarTarefas(ListaDeTarefas *lt);
-void printMenu();
+int printMenu();
 int salvarTarefas(ListaDeTarefas *lt, char *arquivo);
 int carregarTarefas(ListaDeTarefas *lt, char *arquivo);
-void alterarTarefas(ListaDeTarefas *lt);
-void filtrarTarefasPrioridade(ListaDeTarefas lt);
-void filtrarTarefasEstado(ListaDeTarefas *lt);
-void filtrarPrioridadeCategoria();
-void exportarTarefasPrioridade();
-void exportarTarefasCategoria();
-void exportarTarefasPrioridadeCategoria();
+int alterarTarefas(ListaDeTarefas *lt);
+int filtrarTarefasPrioridade(ListaDeTarefas lt);
+int filtrarTarefasEstado(ListaDeTarefas *lt);
+int filtrarPrioridadeCategoria();
+int exportarTarefasPrioridade();
+int exportarTarefasCategoria();
+int exportarTarefasPrioridadeCategoria();
+void limpaBuffer();
 
 
 #endif //UNTITLED1_BIBLIOTECA_H
