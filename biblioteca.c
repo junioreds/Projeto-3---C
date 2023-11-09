@@ -205,9 +205,38 @@ int filtrarTarefasEstado(ListaDeTarefas *lt){
 
 }
 
-int filtrarPrioridadeCategoria(){
-    printf("Fitra Tarefas por Prioridade e Categoria");
-    
+int filtrarPrioridadeCategoria(ListaDeTarefas *lt){
+    int prioridade;
+    char categoria[100];
+
+    printf("Digite a prioridade: ");
+    scanf("%d", &prioridade);
+    limpaBuffer();
+
+    printf("Digite a categoria que deseja filtrar: ");  
+    fgets(categoria, 100, stdin);
+    categoria[strcspn(categoria, "\n")] == '\0';
+
+    int encontradas = 0;
+
+    for (int i = 0; i < lt->qtd; i++) {
+        if (lt->tarefas[i].prioridade == prioridade && strcmp(lt->tarefas[i].categoria, categoria) == 0){
+            encontradas = 1;
+
+            printf("Tarefa %d: \n", i + 1);
+            printf("Prioridade: %d\n", lt->tarefas[i].prioridade);
+            printf("Descrição tarefa: %s\n", lt->tarefas[i].descricao);
+            printf("Categoria: %s\n", lt->tarefas[i].categoria);
+            printf("Prioridade: %s\n", lt->tarefas[i].estado);
+        }
+
+    if (!encontradas) {
+        printf("Nenhuma tarefas encontrada com a prioridade %d e categoria %s solicitada\n", prioridade, categoria  );
+    }
+
+    return 0;
+
+    }
 }
 
 int exportarTarefasPrioridade(){
