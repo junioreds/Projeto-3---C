@@ -30,7 +30,7 @@ int carregarTarefas(ListaDeTarefas *lt, char *arquivo);
 int alterarTarefas(ListaDeTarefas *lt);
 int filtrarTarefasPrioridade(ListaDeTarefas lt);
 int filtrarTarefasEstado(ListaDeTarefas *lt);
-int filtrarPrioridadeCategoria();
+int filtrarPrioridadeCategoria(ListaDeTarefas *lt);
 int exportarTarefasPrioridade();
 int exportarTarefasCategoria();
 int exportarTarefasPrioridadeCategoria();
