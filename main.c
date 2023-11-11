@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "biblioteca.h"
 
+
 // Edson Pedreira de Oliveira Junior R.A 22.123.038-6
 
 
@@ -32,7 +33,7 @@ int main() {
         }  else if (opcao == 8){
             filtrarTarefasEstado(&lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 9){
-            filtrarPrioridadeCategoria(&lt); // carrega as tarefas em um arquivo.txt
+            filtrarPrioridadeCategoria(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 10){
             exportarTarefasPrioridade(); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 11){

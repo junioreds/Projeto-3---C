@@ -6,8 +6,10 @@
             "command": "C:\\MinGW\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=c99",
                 "-g",
-                "${workspaceFolder}\\*.c",
+                "${workspaceFolder}\\main.c",
+                "${workspaceFolder}\\biblioteca.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
