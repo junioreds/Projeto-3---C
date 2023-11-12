@@ -252,7 +252,7 @@ int exportarTarefasPrioridade(ListaDeTarefas lt) {
 
     if (arquivo == NULL) {
         printf("Erro ao criar o arquivo de exportacao.\n");
-        return;
+        return 0;
     }
 
     fprintf(arquivo, "Tarefas com prioridade %d:\n", prioridade);
@@ -280,10 +280,56 @@ int exportarTarefasPrioridade(ListaDeTarefas lt) {
     }
 }
 
-    
-int exportarTarefasCategoria(){
-    printf("Exporta tarefas para um arquivo txt por categoria");
 
+int compararTarefas(const void *a, const void *b){
+    return ((Tarefa*)b)->prioridade - ((Tarefa*)a)->prioridade;
+}
+
+int exportarTarefasCategoria(ListaDeTarefas lt) {
+    char categoria[100];
+
+    printf("Digite a categoria para exportar as tarefas: ");
+    limpaBuffer();
+    fgets(categoria, 100, stdin);
+    categoria[strcspn(categoria, "\n")] = '\0';
+
+    qsort(lt.tarefas, lt.qtd, sizeof(Tarefa), compararTarefas);
+
+    char nomeArquivo[100];
+    sprintf(nomeArquivo, "tarefas_categoria_%s.txt", categoria);
+
+    FILE *arquivo = fopen(nomeArquivo, "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo %s.\n", nomeArquivo);
+        return 1; // Indica que houve um erro na criação do arquivo
+    }
+
+    int encontradas = 0;
+
+    for (int i = 0; i < lt.qtd; i++) {
+        if (strcmp(lt.tarefas[i].categoria, categoria) == 0) {
+            encontradas = 1;
+            fprintf(arquivo, "Tarefa %d:\n", i + 1);
+            fprintf(arquivo, "Prioridade: %d\n", lt.tarefas[i].prioridade);
+            fprintf(arquivo, "Descricao: %s\n", lt.tarefas[i].descricao);
+            fprintf(arquivo, "Categoria: %s\n", lt.tarefas[i].categoria);
+            fprintf(arquivo, "Estado: %s\n", lt.tarefas[i].estado);
+            fprintf(arquivo, "\n");
+            
+        }
+    }
+
+    fclose(arquivo);
+
+    if (!encontradas) {
+        remove(nomeArquivo); // Remove o arquivo vazio, já que nenhuma tarefa foi encontrada
+        printf("Nenhuma tarefa encontrada com a categoria %s. O arquivo não foi criado.\n", categoria);
+    } else {
+        printf("Tarefas exportadas com sucesso para %s.\n", nomeArquivo);
+    }
+
+    return 0; // Indica que a função foi executada corretamente
 }
 
 int exportarTarefasPrioridadeCategoria(){
