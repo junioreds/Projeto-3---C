@@ -23,23 +23,23 @@ int main() {
         } else if (opcao == 3) {
             deletarTarefa(&lt); // Deleta a tarefa selecionada pelo usuario
         }  else if (opcao == 4){
-            salvarTarefas(&lt, "tarefas.bin"); // salva as tarefas em um arquivo.txt    
+            salvarTarefas(&lt, "tarefas.bin"); // salva as tarefas em um arquivo.bin    
         }  else if (opcao == 5){
-            carregarTarefas(&lt, "tarefas.bin"); // carrega as tarefas em um arquivo.txt
+            carregarTarefas(&lt, "tarefas.bin"); // carrega as tarefas em um arquivo.bin
         }  else if (opcao == 6){
-            alterarTarefas(&lt); // salva as tarefas em um arquivo.txt
+            alterarTarefas(&lt); // Se a opção solicitada for igual a seis, entra no laço da função de alterar tarefas
         }  else if (opcao == 7){
-            filtrarTarefasPrioridade(lt); // carrega as tarefas em um arquivo.txt
+            filtrarTarefasPrioridade(lt); // Se a opção solicitada for igual a sete, entra no laço da função de filtrar tarefas de acordo com a prioridade solicitada 
         }  else if (opcao == 8){
-            filtrarTarefasEstado(&lt); // carrega as tarefas em um arquivo.txt
+            filtrarTarefasEstado(&lt); // Se a opção solicitada for igual a oito, entra no laço da função de filtrar tarefas por estado solicitado (completo, em andamento, nao iniciado)
         }  else if (opcao == 9){
-            filtrarPrioridadeCategoria(lt); // carrega as tarefas em um arquivo.txt
+            filtrarPrioridadeCategoria(lt); // Se a opção solicitada for igual a nove, entra no laço da função de filtrar tarefas de acordo com a categoria solicitada
         }  else if (opcao == 10){
-            exportarTarefasPrioridade(lt); // carrega as tarefas em um arquivo.txt
+            exportarTarefasPrioridade(lt); // Se a opção solicitada for igual a dez, entra no laço da função de exportar tarefas de acordo com a prioridade solicitada
         }  else if (opcao == 11){
-            exportarTarefasCategoria(lt); // carrega as tarefas em um arquivo.txt
+            exportarTarefasCategoria(lt); // Se a opção solicitada for igual a onze, entra no laço da função de exportar tarefas de acordo com a categoria solicitada
         }  else if (opcao == 12){
-            exportarTarefasPrioridadeCategoria(lt); // carrega as tarefas em um arquivo.txt
+            exportarTarefasPrioridadeCategoria(lt); // Se a opção solicitada for igual a doze, entra no laço da função de exportar tarefas de acordo com a prioridade e categoria solicita 
         } else{
             printf("Opcao nao disponivel.\n"); // Mostra ao usuario que não existe a opção alem de 1 a 5, e retorna as opções de entrada
         };
