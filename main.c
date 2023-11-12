@@ -35,7 +35,7 @@ int main() {
         }  else if (opcao == 9){
             filtrarPrioridadeCategoria(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 10){
-            exportarTarefasPrioridade(); // carrega as tarefas em um arquivo.txt
+            exportarTarefasPrioridade(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 11){
             exportarTarefasCategoria(); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 12){
