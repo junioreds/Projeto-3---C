@@ -39,7 +39,7 @@ int main() {
         }  else if (opcao == 11){
             exportarTarefasCategoria(lt); // carrega as tarefas em um arquivo.txt
         }  else if (opcao == 12){
-            exportarTarefasPrioridadeCategoria(); // carrega as tarefas em um arquivo.txt
+            exportarTarefasPrioridadeCategoria(lt); // carrega as tarefas em um arquivo.txt
         } else{
             printf("Opcao nao disponivel.\n"); // Mostra ao usuario que não existe a opção alem de 1 a 5, e retorna as opções de entrada
         };
