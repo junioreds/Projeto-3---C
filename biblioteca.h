@@ -31,7 +31,7 @@ int alterarTarefas(ListaDeTarefas *lt);
 int filtrarTarefasPrioridade(ListaDeTarefas lt);
 int filtrarTarefasEstado(ListaDeTarefas *lt);
 int filtrarPrioridadeCategoria(ListaDeTarefas lt);
-int exportarTarefasPrioridade();
+int exportarTarefasPrioridade(ListaDeTarefas lt);
 int exportarTarefasCategoria();
 int exportarTarefasPrioridadeCategoria();
 void limpaBuffer();

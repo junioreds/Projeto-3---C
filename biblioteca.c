@@ -208,7 +208,7 @@ int filtrarTarefasEstado(ListaDeTarefas *lt){
 int filtrarPrioridadeCategoria(ListaDeTarefas lt){
     if (lt.qtd == 0) {
         printf("Nenhuma tarefas cadastradaz\n");
-        return;
+        return 0;
     }    
     
     char categoria[100];
@@ -237,10 +237,50 @@ int filtrarPrioridadeCategoria(ListaDeTarefas lt){
     }
 }
 
-int exportarTarefasPrioridade(){
-    printf("Exporta tarefas para um arquivo txt por prioridade");
+int exportarTarefasPrioridade(ListaDeTarefas lt) {
+    FILE *arquivo;
+    int prioridade;
+
+    printf("Digite a prioridade para exportar as tarefas (0 a 10): ");
+    scanf("%d", &prioridade);
+    limpaBuffer();
+
+    char nomeArquivo[100];
+    sprintf(nomeArquivo, "tarefas_prioridade_%d.txt", prioridade);
+
+    arquivo = fopen(nomeArquivo, "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo de exportacao.\n");
+        return;
+    }
+
+    fprintf(arquivo, "Tarefas com prioridade %d:\n", prioridade);
+    int encontradas = 0;
+
+    for (int i = 0; i < lt.qtd; i++) {
+        if (lt.tarefas[i].prioridade == prioridade) {
+            encontradas = 1;
+            fprintf(arquivo, "Tarefa %d:\n", i + 1);
+            fprintf(arquivo, "Prioridade: %d\n", lt.tarefas[i].prioridade);
+            fprintf(arquivo, "Descricao: %s\n", lt.tarefas[i].descricao);
+            fprintf(arquivo, "Categoria: %s\n", lt.tarefas[i].categoria);
+            fprintf(arquivo, "Estado: %s\n", lt.tarefas[i].estado);
+            fprintf(arquivo, "\n");
+        }
+    }
+
+    fclose(arquivo);
+
+    if (encontradas) {
+        printf("Tarefas exportadas com sucesso para %s.\n", nomeArquivo);
+    } else {
+        remove(nomeArquivo);
+        printf("Nenhuma tarefa encontrada com a prioridade %d.\n", prioridade);
+    }
 }
 
+    
 int exportarTarefasCategoria(){
     printf("Exporta tarefas para um arquivo txt por categoria");
 
